@@ -1,17 +1,48 @@
-import tomJerryNibbles.*
+import tomJerryNiblles.*
+test "Al inicio, la velocidad máxima de Tom es 10" {
+    assert.equals(10, tom.velocidadMaxima())
+}
 
-describe "Grupo de test" {
+test "Si come a Jerry, la velocidad máxima pasa a ser 15.2" {
+    tom.comerRaton(jerry)
+    assert.equals(15.2, tom.velocidadMaxima())
+}
 
-  test "test 1" {
-    assert.equals(100, 50+50)
-  }
+test "Si corre 24 metros, después de comer a Jerry, la velocidad es 14" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    assert.equals(14, tom.velocidadMaxima())
+}
+ 
+test "Si come a Nibbles (después de lo anterior), la velocidad es 18.7" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    assert.equals(18.7, tom.velocidadMaxima())
+}
 
-  test "test 3" {
-    assert.that(true)
-  }
+test "Jerry cumple 3 años, Tom lo come y su velocidad es 25.9" {
+    // Escena: Tom ya comió a Jerry, corrió y comió a Nibbles
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    
+    // Acción nueva: Jerry cumple años y Tom lo vuelve a comer
+    jerry.cambiarEdad(3) 
+    tom.comerRaton(jerry)
+    
+    assert.equals(25.9, tom.velocidadMaxima())
+}
 
-  test "test 4" {
-    assert.notThat(false)
-  }
-
+test "Si corre 38 metros al final, su velocidad es 24" {
+    // Repetimos toda la historia anterior
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cambiarEdad(3)
+    tom.comerRaton(jerry)
+    
+    // Acción final
+    tom.correr(38)
+    assert.equals(24, tom.velocidadMaxima())
 }
